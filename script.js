@@ -3,7 +3,7 @@ const SHEET_URL = "https://script.google.com/macros/s/AKfycby7Us21mSgOl5P_mJ4qrR
 const SHEET_TOKEN = "CareerFit"; // must match TOKEN in Apps Script
 
 function sendToSheet(d) {
-  if (!SHEET_URL || SHEET_URL.includes("https://script.google.com/macros/s/AKfycby7Us21mSgOl5P_mJ4qrR-kJqAAyUhlPbJSu_QuV-jx_ExSak_tSdGLDXF3p7xgdyKuEA/exec")) return;
+  if (!SHEET_URL || SHEET_URL.includes("https://script.google.com/macros/s/AKfycbwBAtfM9GJ5QVk2jV4X6P0jeZGkTq2_vUIXO2Wm2VHbVl76COla-K5AD4G1zQ3x6OvEmQ/exec")) return;
   try {
     fetch(SHEET_URL, {
       method: "POST",
