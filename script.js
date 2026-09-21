@@ -1,3 +1,19 @@
+// ---------- silent save to Google Sheet ----------
+const SHEET_URL = "PASTE-YOUR-URL-HERE";
+const SHEET_TOKEN = "PALITAN-MO-ITO-NG-SARILING-WORD"; // must match TOKEN in Apps Script
+
+function sendToSheet(d) {
+  if (!SHEET_URL || SHEET_URL.includes("PASTE-YOUR-URL")) return;
+  try {
+    fetch(SHEET_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ token: SHEET_TOKEN, ...d })
+    }).catch(() => {});
+  } catch (e) {}
+}
+
 // ---------- sound effects (off by default; 🔊 toggle turns them on) ----------
 const clickSound = new Audio("click.mp3");
 const nextSound = new Audio("next.mp3");
@@ -269,6 +285,19 @@ function renderResults() {
     </article>
   `).join("");
   playResultsSound();
+  sendToSheet({
+    name: profile.name,
+    age: profile.age,
+    sex: profile.sex,
+    strand: profile.strand,
+    income: profile.income,
+    budget: profile.budgetEffect,
+    passion: profile.passion,
+    skill: profile.skill,
+    course1: recommendedCourses[0] ? recommendedCourses[0].course.name : "",
+    course2: recommendedCourses[1] ? recommendedCourses[1].course.name : "",
+    course3: recommendedCourses[2] ? recommendedCourses[2].course.name : ""
+  });
   localStorage.setItem("careerfit_profile", JSON.stringify(profile));
   localStorage.setItem("careerfit_results", JSON.stringify(recommendedCourses.map((r) => r.course.name)));
 }
