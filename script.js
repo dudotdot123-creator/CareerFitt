@@ -1,9 +1,9 @@
 // ---------- silent save to Google Sheet ----------
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbz1TC96gg0BEdNOJD_48GXqeg2Vexm2qwFyyaQU5y0voqKPFxfq97iwtwaW0b_MDnvbhA/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwkv6AC0XOEJik3GhAFUAxM3TTXx4vVA_2D2YDwDUJq5ybUfOV0n66E_S53c-6Qq7ySYA/exec";
 const SHEET_TOKEN = "CareerFit"; // must match TOKEN in Apps Script
 
 function sendToSheet(d) {
-  if (!SHEET_URL || SHEET_URL.includes("https://script.google.com/macros/s/AKfycbz1TC96gg0BEdNOJD_48GXqeg2Vexm2qwFyyaQU5y0voqKPFxfq97iwtwaW0b_MDnvbhA/exec")) return;
+  if (!SHEET_URL || SHEET_URL.includes("https://script.google.com/macros/s/AKfycbwkv6AC0XOEJik3GhAFUAxM3TTXx4vVA_2D2YDwDUJq5ybUfOV0n66E_S53c-6Qq7ySYA/exec")) return;
   try {
     fetch(SHEET_URL, {
       method: "POST",
