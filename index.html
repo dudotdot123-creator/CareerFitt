@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerFit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-default" data-theme-icon="✨">
+  <div class="bg-photo" id="bg-photo-1"></div>
+  <div class="bg-photo" id="bg-photo-2"></div>
+  <div class="bg-tint" id="bg-tint"></div>
+  <button class="sound-toggle" id="sound-toggle" aria-label="Toggle sound" title="Toggle sound">🔇</button>
+  <header class="site-header">
+    <div class="brand"><span class="brand-mark">CF</span><span>CareerFit</span></div>
+    <p>Matching students to courses based on their career path</p>
+  </header>
+
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span id="progress-label">Step 1 of 8</span>
+  </div>
+
+  <main id="app">
+    <!-- PAGE 1 -->
+    <section class="screen active" id="screen-welcome">
+      <div class="hero-card">
+        <p class="eyebrow">Dampol 1st National High School · Grade 12</p>
+        <h1>CareerFit</h1>
+        <p class="hero-subtitle">Find courses that match your budget, passion, and skills.</p>
+        <p class="intro-text">
+          Answer a few simple questions and discover your Top 3 college course matches.
+        </p>
+        <button class="primary-button" id="btn-start">Start Exploring <span>→</span></button>
+      </div>
+    </section>
+
+    <!-- PAGE 2 -->
+    <section class="screen" id="screen-basic">
+      <p class="eyebrow">Page 2 · Basic Information</p>
+      <h2>Tell us a little about yourself</h2>
+      <p class="intro-text">Your name is optional. Select your strand to set your theme.</p>
+      <form id="basic-form">
+        <label class="field">
+          <span>Name <small>(Optional)</small></span>
+          <input id="name" type="text" placeholder="Your name">
+        </label>
+        <label class="field">
+          <span>Age</span>
+          <input id="age" type="number" min="1" max="100" placeholder="Your age">
+        </label>
+
+        <p class="field-label">Sex</p>
+        <div class="options two-columns" id="sex-options">
+          <label class="option"><input type="radio" name="sex" value="Male"><span>Male</span></label>
+          <label class="option"><input type="radio" name="sex" value="Female"><span>Female</span></label>
+        </div>
+
+        <p class="field-label">Strand / Program</p>
+        <div class="options" id="strand-options">
+          <label class="option"><input type="radio" name="strand" value="STEM"><span>Academic — STEM</span></label>
+          <label class="option"><input type="radio" name="strand" value="ABM"><span>Academic — ABM</span></label>
+          <label class="option"><input type="radio" name="strand" value="HUMSS"><span>Academic — HUMSS</span></label>
+          <label class="option"><input type="radio" name="strand" value="ICT"><span>Tech-Pro — ICT</span></label>
+          <label class="option"><input type="radio" name="strand" value="Home Economics"><span>Tech-Pro — Home Economics</span></label>
+        </div>
+        <p class="form-message" id="basic-message"></p>
+        <button class="primary-button" type="submit">Next <span>→</span></button>
+      </form>
+    </section>
+
+    <!-- PAGE 3 -->
+    <section class="screen" id="screen-financial">
+      <p class="eyebrow">Page 3 · Factor 1</p>
+      <h2>Financial Capacity</h2>
+      <p class="intro-text">Your budget helps us suggest realistic choices.</p>
+      <form id="financial-form">
+        <p class="field-label">5. Family Monthly Income</p>
+        <div class="options">
+          <label class="option"><input type="radio" name="income" value="below"><span>Below ₱10,000</span></label>
+          <label class="option"><input type="radio" name="income" value="10-20"><span>₱10,001 – ₱20,000</span></label>
+          <label class="option"><input type="radio" name="income" value="20-40"><span>₱20,001 – ₱40,000</span></label>
+          <label class="option"><input type="radio" name="income" value="above"><span>Above ₱40,000</span></label>
+        </div>
+
+        <p class="field-label">6. How does your budget affect your choice?</p>
+        <div class="options">
+          <label class="option"><input type="radio" name="budget-effect" value="no-limit"><span>Finances won't limit my choice</span></label>
+          <label class="option"><input type="radio" name="budget-effect" value="affordable"><span>I'll choose affordable schools but keep my dream course</span></label>
+          <label class="option"><input type="radio" name="budget-effect" value="budget"><span>I need budget-friendly programs</span></label>
+          <label class="option"><input type="radio" name="budget-effect" value="tuition"><span>Tuition is my main consideration</span></label>
+        </div>
+        <p class="form-message" id="financial-message"></p>
+        <button class="primary-button" type="submit">Next <span>→</span></button>
+      </form>
+    </section>
+
+    <!-- PAGE 4 -->
+    <section class="screen" id="screen-passion">
+      <p class="eyebrow">Page 4 · Factor 2</p>
+      <h2>Personal Passion &amp; Interest</h2>
+      <p class="intro-text">These choices are filtered for your strand only.</p>
+      <form id="passion-form">
+        <p class="field-label">7. Activity or Field You Are Passionate About</p>
+        <div class="options" id="passion-options"></div>
+        <p class="form-message" id="passion-message"></p>
+        <button class="primary-button" type="submit">Next <span>→</span></button>
+      </form>
+    </section>
+
+    <!-- PAGE 5 -->
+    <section class="screen" id="screen-skills">
+      <p class="eyebrow">Page 5 · Factor 3</p>
+      <h2>Skills &amp; Abilities</h2>
+      <p class="intro-text">Only subjects and skills from your strand are shown.</p>
+      <form id="skills-form">
+        <p class="field-label">8. Subject or Skill You Are Best At</p>
+        <div class="options" id="skills-options"></div>
+        <p class="form-message" id="skills-message"></p>
+        <button class="primary-button" type="submit">See My Courses <span>✨</span></button>
+      </form>
+    </section>
+
+    <!-- LOADING -->
+    <section class="screen center-screen" id="screen-loading">
+      <div class="sparkle">✦</div>
+      <h2>Finding your perfect path…</h2>
+      <p class="intro-text">Comparing your budget, passion, and skills.</p>
+    </section>
+
+    <!-- PAGE 6 -->
+    <section class="screen" id="screen-results">
+      <p class="eyebrow">Page 6 · Results</p>
+      <h2>Your Top 3 Recommended Courses</h2>
+      <p class="intro-text">These recommendations are a guide to help you explore your next steps.</p>
+      <div id="results-list" class="results-list"></div>
+      <button class="primary-button" id="btn-evaluation">Help Us Improve <span>→</span></button>
+    </section>
+
+    <!-- PAGE 7 -->
+    <section class="screen" id="screen-evaluation">
+      <p class="eyebrow">Page 7 · System Evaluation</p>
+      <h2>Tell us what you think</h2>
+      <p class="intro-text">Your answers will help improve CareerFit.</p>
+      <form id="evaluation-form">
+        <p class="field-label">1. The recommended courses match my profile accurately:</p>
+        <div class="options three-columns">
+          <label class="option"><input type="radio" name="accuracy" value="Yes"><span>Yes</span></label>
+          <label class="option"><input type="radio" name="accuracy" value="Partially"><span>Partially</span></label>
+          <label class="option"><input type="radio" name="accuracy" value="No"><span>No</span></label>
+        </div>
+
+        <p class="field-label">2. I am satisfied with the results provided:</p>
+        <div class="options three-columns">
+          <label class="option"><input type="radio" name="satisfaction" value="Yes"><span>Yes</span></label>
+          <label class="option"><input type="radio" name="satisfaction" value="Neutral"><span>Neutral</span></label>
+          <label class="option"><input type="radio" name="satisfaction" value="No"><span>No</span></label>
+        </div>
+
+        <p class="field-label">3. The information given is clear and helpful:</p>
+        <div class="options three-columns">
+          <label class="option"><input type="radio" name="clarity" value="Yes"><span>Yes</span></label>
+          <label class="option"><input type="radio" name="clarity" value="Somewhat"><span>Somewhat</span></label>
+          <label class="option"><input type="radio" name="clarity" value="No"><span>No</span></label>
+        </div>
+        <p class="source-note">Adapted from Ogunleye &amp; Okewu (2017).</p>
+        <p class="form-message" id="evaluation-message"></p>
+        <button class="primary-button" type="submit">Submit <span>✅</span></button>
+      </form>
+    </section>
+
+    <!-- PAGE 8 -->
+    <section class="screen center-screen" id="screen-thank-you">
+      <div class="thank-you-icon">✨</div>
+      <h2>Your future looks bright ✨</h2>
+      <p class="intro-text">Responses have been recorded. Keep exploring the path that feels right for you.</p>
+      <button class="primary-button" id="btn-download">⬇ Download my response</button>
+      <button class="secondary-button" id="btn-restart">Start Over</button>
+      <a class="secondary-button" id="btn-view-record" href="record-full.html">📄 View Full Record</a>
+    </section>
+  </main>
+
+  <footer>CareerFit · Dampol 1st National High School · Grade 12</footer>
+  <script src="script.js"></script>
+</body>
+</html>

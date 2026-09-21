@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerFit — Your Full Record</title>
+<style>
+  :root {
+    --text: #444444;
+    --muted: #6b6b6b;
+    --accent: #9b8fc7;
+    --accent-dark: #7d6fae;
+    --card: rgba(255, 255, 255, 0.75);
+    --card-border: rgba(180, 180, 200, 0.35);
+    --line: rgba(120, 120, 140, 0.18);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    color: var(--text);
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    line-height: 1.55;
+    background: linear-gradient(135deg, #f2eefc 0%, #eef4fb 50%, #fdf3ec 100%);
+    padding: 32px 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 2.2rem 1.8rem;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 12px 40px rgba(0,0,0,.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  h1 { font-size: 1.5rem; text-align: center; color: var(--accent-dark); margin: 0 0 4px; }
+  .subtitle { text-align: center; color: var(--muted); font-size: .9rem; margin: 0 0 22px; }
+  h2 { font-size: 1.05rem; margin: 0 0 10px; color: var(--accent-dark); }
+  .section { margin-bottom: 22px; }
+  .row {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 8px 0; border-bottom: 1px solid var(--line);
+    font-size: .96rem;
+  }
+  .row span:first-child { color: var(--muted); }
+  .row span:last-child { font-weight: 700; text-align: right; }
+  .course-card {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .course-card h3 { margin: 0 0 6px; font-size: 1rem; }
+  .course-card ul { margin: 0; padding-left: 18px; font-size: .9rem; color: var(--muted); }
+  .course-card li { margin: 2px 0; }
+  .screenshot-note {
+    text-align: center; font-size: .88rem; color: var(--muted);
+    border-top: 1px dashed var(--line); padding-top: 16px; margin-top: 8px;
+  }
+  .back-btn {
+    display: block; text-align: center; text-decoration: none;
+    margin: 20px auto 0; max-width: 220px;
+    color: var(--accent-dark); background: transparent;
+    border: 1px solid var(--line); border-radius: 16px;
+    padding: 12px 20px; font-weight: 800; cursor: pointer;
+  }
+  .back-btn:hover { background: rgba(255,255,255,0.65); }
+  .empty-message { text-align: center; color: var(--muted); padding: 20px 0; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>CAREERFIT — YOUR FULL RECORD</h1>
+    <p class="subtitle">A summary of your answers and course matches</p>
+
+    <div id="record-content"></div>
+
+    <a class="back-btn" href="index.html">← Back to Home</a>
+  </div>
+
+<script>
+  const STRAND_LABELS = {
+    "STEM": "STEM",
+    "ABM": "ABM",
+    "HUMSS": "HUMSS",
+    "ICT": "ICT",
+    "Home Economics": "HE"
+  };
+
+  function displayStrand(strand) {
+    return STRAND_LABELS[strand] || strand || "—";
+  }
+
+  function val(v) {
+    return (v === undefined || v === null || v === "") ? "—" : v;
+  }
+
+  const profileRaw = localStorage.getItem("careerfit_profile");
+  const resultsRaw = localStorage.getItem("careerfit_results");
+  const container = document.getElementById("record-content");
+
+  if (!profileRaw || !resultsRaw) {
+    container.innerHTML = `<p class="empty-message">No saved record found on this device yet.<br>Please complete the CareerFit questionnaire first.</p>`;
+  } else {
+    const profile = JSON.parse(profileRaw);
+    const courseNames = JSON.parse(resultsRaw);
+    const medals = ["🥇", "🥈", "🥉"];
+
+    container.innerHTML = `
+      <div class="section">
+        <h2>📋 Personal Information</h2>
+        <div class="row"><span>Name</span><span>${val(profile.name)}</span></div>
+        <div class="row"><span>Age</span><span>${val(profile.age)}</span></div>
+        <div class="row"><span>Sex</span><span>${val(profile.sex)}</span></div>
+        <div class="row"><span>Strand</span><span>${displayStrand(profile.strand)}</span></div>
+      </div>
+
+      <div class="section">
+        <h2>📝 Your Answers</h2>
+        <div class="row"><span>Monthly Income</span><span>${val(profile.income)}</span></div>
+        <div class="row"><span>Budget Concern</span><span>${val(profile.budgetEffect)}</span></div>
+        <div class="row"><span>Passion / Interest</span><span>${val(profile.passion)}</span></div>
+        <div class="row"><span>Skill / Subject</span><span>${val(profile.skill)}</span></div>
+      </div>
+
+      <div class="section">
+        <h2>🎓 Your Top 3 Recommended Courses</h2>
+        ${courseNames.map((name, i) => `
+          <div class="course-card">
+            <h3>${medals[i] || "•"} #${i + 1} — ${name}</h3>
+            <ul>
+              <li>✅ Matches your passion</li>
+              <li>✅ Matches your skills</li>
+              <li>✅ Fits your budget</li>
+            </ul>
+          </div>
+        `).join("")}
+      </div>
+
+      <p class="screenshot-note">📸 Please screenshot this page &amp; send to us — Thank you!</p>
+    `;
+  }
+</script>
+</body>
+</html>
